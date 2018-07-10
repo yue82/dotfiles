@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: times
+# key: ntime
+# --
+% ${1:N}.times do |${2:i}|
+  $0
+% end

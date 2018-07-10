@@ -1,0 +1,28 @@
+[user]
+	useConfigOnly = true
+[merge]
+	ff = false
+[pull]
+	rebase = true
+	ff = only
+[core]
+	editor = emacsclient
+[http]
+	postBuffer = 524288000
+[alias]
+	co = checkout
+	cm = commit
+	p = !git push origin `git rev-parse --abbrev-ref HEAD`
+	unstage = reset -q HEAD --
+	discard = checkout --
+	uncommit = reset --mixed HEAD~
+	amend = commit --amend
+
+	branches = branch -a
+	tags = tag
+	stashes = stash list
+	precommit = diff --cached --diff-algorithm=minimal -w
+
+	open=! echo http://$(git config remote.origin.url | cut -f2 -d@ | tr ':' '/') | xargs -n 1 xdg-open
+[magit]
+	hideCampaign = true

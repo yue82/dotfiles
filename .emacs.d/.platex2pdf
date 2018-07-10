@@ -1,0 +1,9 @@
+#!/bin/sh
+export file=$1
+
+export name=${file%.*}
+
+nkf -e $1 > $name.euc
+
+platex $name.euc
+dvipdfmx ${file%.*}.dvi

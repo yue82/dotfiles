@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: eruby_insert
+# key: <%
+# --
+<%=$0%>

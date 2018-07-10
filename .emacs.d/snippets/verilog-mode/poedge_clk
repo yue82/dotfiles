@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: posedge_clk
+# key: pclk
+# --
+@( posedge clk )

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: negedge_clk
+# key: nclk
+# --
+@( negedge clk )
