@@ -10,7 +10,7 @@
 ;; インストールするパッケージ
 (defvar my/favorite-packages
   '(
-    auto-install pkg-info
+    pkg-info
     dakrone-theme boron-theme
     csv-mode go-mode lua-mode python-mode sbt-mode scala-mode scss-mode web-mode yaml-mode
     ruby-mode ruby-block ruby-electric eruby-mode markdown-mode cmake-mode

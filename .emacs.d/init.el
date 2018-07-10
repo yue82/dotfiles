@@ -8,10 +8,6 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/el"))
 
-(require 'auto-install)
-(setq auto-install-directory "~/.emacs.d/auto-install/")
-(auto-install-compatibility-setup)
-
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
 ;; menu-bar off on terminal
