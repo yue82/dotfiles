@@ -706,6 +706,7 @@
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$"   . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html\\.erb$". web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx?$"     . web-mode))
 
 (global-set-key (kbd "C-c C-c") 'web-mode-element-close)
 
