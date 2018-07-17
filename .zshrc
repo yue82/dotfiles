@@ -201,9 +201,9 @@ export EDITOR='emacsclient'
 export SHELL='zsh'
 export DATA_DIR=$HOME'/data'
 
-[[ -s "~/.tmuxinator/tmuxinator.zsh" ]] && source ~/.tmuxinator/tmuxinator.zsh
-[[ -s "~/.profile" ]] && source ~/.profile
-[[ -s "~/.env_settings" ]] && source ~/.env_settings
+
+[[ -e "$HOME/.tmuxinator/tmuxinator.zsh" ]] && source "$HOME/.tmuxinator/tmuxinator.zsh"
+[[ -e "$HOME/.env_settings" ]] && source "$HOME/.env_settings"
 
 export PATH="$HOME/mytools/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -214,8 +214,8 @@ export GTEST_INCLUDE_DIR=$GTEST_ROOT"/googletest/include"
 
 export PATH="/usr/local/bin:$PATH"
 
-export PYENV_ROOT=$HOME/.pyenv
-export PATH=$PYENV_ROOT/bin:$PATH
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 [[ -s "$HOME/.pyenv" ]] && eval "$(pyenv init -)"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
