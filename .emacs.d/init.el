@@ -318,9 +318,8 @@
   (insert (format my/mc/insert-numbers-pad mc--insert-numbers-number))
   (setq mc--insert-numbers-number (+ mc--insert-numbers-number my/mc/insert-numbers-inc)))
 
-(smartrep-define-key global-map "C-c :"
-                     '((":"      . 'mc/mark-next-like-this)
-                       ;; ("n"        . 'mc/mark-next-like-this)
+(smartrep-define-key global-map "C-c '"
+                     '(("'"      . 'mc/mark-next-like-this)
                        ("p"        . 'mc/mark-previous-like-this)
                        ("m"        . 'mc/mark-more-like-this-extended)
                        ("u"        . 'mc/unmark-next-like-this)
@@ -632,7 +631,7 @@
 (add-to-list 'auto-mode-alist '("\\.bashrc\\'" . shell-script-mode))
 
 
-;; pythonのインデント　を4に
+;; pythonのインデントを4に
 (add-hook 'python-mode-hook
           '(lambda ()
              (setq python-indent 4)
@@ -722,6 +721,9 @@
   )
 (add-hook 'c-mode-hook 'my-c-c++-mode)
 (add-hook 'c++-mode-hook 'my-c-c++-mode)
+
+;; make
+(add-to-list 'auto-mode-alist '("\\.cmake$" . makefile-mode))
 
 ;; verilog-mode
 (add-to-list 'ac-modes 'verilog-mode)
