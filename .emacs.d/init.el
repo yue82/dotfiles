@@ -384,13 +384,13 @@
 ;;;;; ----------
 
 ;; align-regexp
-(global-set-key (kbd "C-c TAB") 'align-regexp)
+(global-set-key (kbd "C-c A") 'align-regexp)
 
 ;;全置換
 (define-key global-map (kbd "C-c R") 'replace-string)
 
 ;; バッファ同期スクロール
-(global-set-key (kbd "C-c s") 'scroll-all-mode)
+(global-set-key (kbd "C-c S") 'scroll-all-mode)
 
 
 ;;;;; ----------
