@@ -318,8 +318,8 @@
   (insert (format my/mc/insert-numbers-pad mc--insert-numbers-number))
   (setq mc--insert-numbers-number (+ mc--insert-numbers-number my/mc/insert-numbers-inc)))
 
-(smartrep-define-key global-map "C-c '"
-                     '(("'"      . 'mc/mark-next-like-this)
+(smartrep-define-key global-map "C-c n"
+                     '(("n"      . 'mc/mark-next-like-this)
                        ("p"        . 'mc/mark-previous-like-this)
                        ("m"        . 'mc/mark-more-like-this-extended)
                        ("u"        . 'mc/unmark-next-like-this)
@@ -377,7 +377,6 @@
 (setq anzu--use-migemo-p nil)
 (set-face-foreground 'anzu-mode-line nil)
 (global-set-key (kbd "C-c r") 'anzu-query-replace)
-;; (global-set-key (kbd "C-c R") 'anzu-query-replace-regexp)
 
 ;;;;; ----------
 ;;;;; Key bind
@@ -385,9 +384,6 @@
 
 ;; align-regexp
 (global-set-key (kbd "C-c A") 'align-regexp)
-
-;;全置換
-(define-key global-map (kbd "C-c R") 'replace-string)
 
 ;; バッファ同期スクロール
 (global-set-key (kbd "C-c S") 'scroll-all-mode)
