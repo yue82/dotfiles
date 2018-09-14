@@ -121,7 +121,6 @@ case ${OSTYPE} in
         ;;
     linux*)
         #Linux用の設定
-        export DISPLAY=unix:0
         alias ls='ls -F --color=auto'
         alias -g gopen=xdg-open
         ;;
