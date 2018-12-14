@@ -712,6 +712,7 @@
     (c-set-offset 'statement-cont 'c-lineup-math)
     (c-set-offset 'substatement-open '0)
     (c-set-offset 'innamespace 0)
+    (c-auto-newline nil)
      (setq comment-start "// "
            comment-end   "")
   )
@@ -720,6 +721,9 @@
 
 ;; make
 (add-to-list 'auto-mode-alist '("\\.cmake$" . makefile-mode))
+
+;; gdb
+(setq gdb-many-windows t)
 
 ;; verilog-mode
 (add-to-list 'ac-modes 'verilog-mode)
@@ -753,5 +757,7 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-hook 'markdown-mode-hook
           '(lambda ()
-             (electric-indent-local-mode -1)))
+             (electric-indent-local-mode -1)
+             (electric-indent-mode 0)
+))
 (setq markdown-list-indent-width 2)
