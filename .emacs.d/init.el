@@ -712,7 +712,6 @@
     (c-set-offset 'statement-cont 'c-lineup-math)
     (c-set-offset 'substatement-open '0)
     (c-set-offset 'innamespace 0)
-    (c-auto-newline nil)
      (setq comment-start "// "
            comment-end   "")
   )
