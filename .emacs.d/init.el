@@ -459,7 +459,7 @@
 ;; howm
 (setq howm-ref-header "-->")
 (setq howm-keyword-header "<--")
-(setq action-lock-switch-default '("{ }" "{-}" "{*}" "{!}" "{?}" "{w}"))
+(setq action-lock-switch-default '("{ }" "{-}" "{*}" "{!}" "{?}" "{w}" "{p}"))
 (setq action-lock-open-regexp
       "\\<-->\\(localhost\\)?\\([-!@#$%^&*()_+|=:~/?a-zA-Z0-9.,;]*[-!@#$%^&*()_+|=:~/?a-zA-Z0-9]+\\)\\>")
 (setq action-lock-open-regexp-pos 2)
@@ -502,6 +502,7 @@
 (global-unset-key (kbd "C-c C-m"))
 (global-unset-key (kbd "C-c m"))
 (global-set-key (kbd "C-c m") 'magit-status)
+(setq magit-diff-refine-hunk t)
 
 ;; git gutter
 (global-git-gutter-mode t)
@@ -634,9 +635,9 @@
              (setq indent-tabs-mode nil)
              ))
 
-;; (smartrep-define-key global-map "C-c"
-;;   '((">" . python-indent-shift-right)
-;;     ("<" . python-indent-shift-left)))
+(smartrep-define-key global-map "C-c"
+  '((">" . python-indent-shift-right)
+    ("<" . python-indent-shift-left)))
 
 ;; coffeeのインデントを2に
 (defun coffee-custom ()
@@ -708,7 +709,7 @@
 ;; cc-mode
 (defun my-c-c++-mode ()
     (c-set-style "gnu")
-    (setq c-basic-offset 2)
+    (setq c-basic-offset 4)
     (c-set-offset 'statement-cont 'c-lineup-math)
     (c-set-offset 'substatement-open '0)
     (c-set-offset 'innamespace 0)
