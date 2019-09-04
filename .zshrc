@@ -204,7 +204,7 @@ export DATA_DIR=$HOME'/data'
 [[ -e "$HOME/.tmuxinator/tmuxinator.zsh" ]] && source "$HOME/.tmuxinator/tmuxinator.zsh"
 [[ -e "$HOME/.env_settings" ]] && source "$HOME/.env_settings"
 
-export PATH="$HOME/mytools/bin:$PATH"
+export PATH="$HOME/my_tools/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 export GTEST_ROOT="$HOME/tools/googletest"
