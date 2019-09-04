@@ -235,6 +235,9 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
 [[ -s "$HOME/.rbenv" ]] && eval "$(rbenv init -)"
 
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
 # zmv
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
