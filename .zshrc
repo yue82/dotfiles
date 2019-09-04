@@ -133,13 +133,17 @@ case ${OSTYPE} in
     linux*)
         #Linux用の設定
         alias ls='ls -F --color=auto'
-        alias -g gopen=xdg-open
+        if uname -r | grep -i 'microsoft' > /dev/null ; then
+            alias -g open=wsl-open
+        else
+            alias -g open=xdg-open
+        fi
         ;;
     cygwin*)
         export DISPLAY=:0.0
         export LANG=C.utf8
         alias ls='ls -F --color=auto'
-        alias -g gopen=cygstart
+        alias -g open=cygstart
         ;;
 esac
 
