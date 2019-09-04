@@ -22,7 +22,7 @@ do
     echo 'ln '$HOME/$file
 done
 
-DOT_DIRS=(.emacs.d .tmuxinator)
+DOT_DIRS=(.emacs.d .tmuxinator .peco)
 for dir in ${DOT_DIRS[@]}
 do
     rm -rf $HOME/$dir

@@ -6,6 +6,7 @@
 !/.screenrc
 !/.git*
 !/.tmuxinator/
+!/.peco/
 !/*.sh
 !/.emacs
 !/.emacs.d/
