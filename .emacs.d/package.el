@@ -1,6 +1,7 @@
 (require 'package)
 
 ;; MELPAのみ追加
+(setq package-archives nil)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 

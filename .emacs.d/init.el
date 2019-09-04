@@ -2,6 +2,11 @@
 ;;;;;; Config
 ;;;;; ----------
 
+(require 'gnutls)
+(add-to-list 'gnutls-trustfiles
+             (expand-file-name
+              "~/etc/tls/certificates/comodo.rsa.ca.intermediate.crt"))
+
 (package-initialize)
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
