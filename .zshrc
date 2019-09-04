@@ -97,7 +97,18 @@ setopt hist_reduce_blanks
 # キーバインド
 
 # ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
-bindkey '^R' history-incremental-pattern-search-backward
+# pecoがインストールされているならpeco
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tac  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+if type peco > /dev/null ; then
+    zle -N peco-history-selection
+    bindkey '^R' peco-history-selection
+else
+    bindkey '^R' history-incremental-pattern-search-backward
+fi
 
 ########################################
 # エイリアス
