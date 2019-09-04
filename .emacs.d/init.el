@@ -204,8 +204,8 @@
       (run-with-idle-timer 0.03 t 'global-hl-line-timer-function))
 
 ;;列ハイライト
-(require 'col-highlight)
-(set-face-background 'col-highlight "black")
+;; (require 'col-highlight)
+;; (set-face-background 'col-highlight "black")
 
 ;; タブ・行末・空行表示
 (require 'whitespace)
@@ -661,11 +661,6 @@
 (require 'ruby-electric)
 (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
 (setq ruby-electric-expand-delimiters-list nil)
-
-;; ruby-block.el --- highlight matching block
-(require 'ruby-block)
-(ruby-block-mode t)
-(setq ruby-block-highlight-toggle t)
 
 ;; yatex
 (setq auto-mode-alist
