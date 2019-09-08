@@ -138,16 +138,16 @@ case ${OSTYPE} in
         else
             alias open=xdg-open
         fi
-	export GOPATH=$HOME/go
-	export PATH=$PATH:$GOPATH/bin
+        export GOPATH=$HOME/go
+        export PATH=$PATH:$GOPATH/bin
         ;;
     cygwin*)
         export DISPLAY=:0.0
         export LANG=C.utf8
         alias ls='ls -F --color=auto'
         alias open=cygstart
-	export GOPATH='c:\\cygwin\\home\\yue\\go'
-	export PATH="$HOME/go/bin:$PATH"
+        export GOPATH='c:\\cygwin\\home\\yue\\go'
+        export PATH="$HOME/go/bin:$PATH"
         ;;
 esac
 
