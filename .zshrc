@@ -134,16 +134,20 @@ case ${OSTYPE} in
         #Linux用の設定
         alias ls='ls -F --color=auto'
         if uname -r | grep -i 'microsoft' > /dev/null ; then
-            alias -g open=wsl-open
+            alias open=wsl-open
         else
-            alias -g open=xdg-open
+            alias open=xdg-open
         fi
+	export GOPATH=$HOME/go
+	export PATH=$PATH:$GOPATH/bin
         ;;
     cygwin*)
         export DISPLAY=:0.0
         export LANG=C.utf8
         alias ls='ls -F --color=auto'
-        alias -g open=cygstart
+        alias open=cygstart
+	export GOPATH='c:\\cygwin\\home\\yue\\go'
+	export PATH="$HOME/go/bin:$PATH"
         ;;
 esac
 
@@ -215,7 +219,6 @@ export EDITOR='emacsclient'
 export SHELL='zsh'
 export DATA_DIR=$HOME'/data'
 
-
 [[ -e "$HOME/.tmuxinator/tmuxinator.zsh" ]] && source "$HOME/.tmuxinator/tmuxinator.zsh"
 [[ -e "$HOME/.env_settings" ]] && source "$HOME/.env_settings"
 
@@ -234,9 +237,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 [[ -s "$HOME/.rbenv" ]] && eval "$(rbenv init -)"
-
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
 
 # zmv
 autoload -Uz zmv
