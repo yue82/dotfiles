@@ -168,6 +168,7 @@
 ;; 括弧閉じ
 (require 'smartparens-config)
 (smartparens-global-mode t)
+(sp-pair "<<" ">>")
 
 ;; 操作強調
 (require 'volatile-highlights)
@@ -756,3 +757,25 @@
              (electric-indent-mode 0)
 ))
 (setq markdown-list-indent-width 2)
+
+;; erlang mode
+(setq load-path (cons  "/usr/lib/erlang/lib/tools-2.8.3/emacs/"
+                       load-path))
+(setq erlang-root-dir "/usr/lib/erlang")
+(setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
+(require 'erlang-start)
+
+
+(defvar erlang-electric-commands
+  '(
+    ;; erlang-electric-comma
+    ;; erlang-electric-semicolon
+    ;; erlang-electric-gt
+    erlang-electric-newline
+    )
+  "*List of activated electric commands.")
+
+;;;;; ----------
+
+(provide 'init)
+;;;
