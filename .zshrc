@@ -160,8 +160,14 @@ alias ll='ls -alF'
 alias l='ls'
 
 alias emacs='TERM=xterm-256color emacs -nw'
-alias ec='TERM=xterm-256color emacsclient -c -a "" -nw'
-alias killemacs='emacsclient -e "(kill-emacs)"'
+alias e='TERM=xterm-256color emacsclient -c -a "" -nw'
+alias ekill="emacsclient -e '(kill-emacs)'"
+
+if ! emacsclient -e 0 > /dev/null 2>&1; then
+    cd > /dev/null 2>&1
+    emacs --daemon
+    cd - > /dev/null 2>&1
+fi
 
 alias cdw='cd ~/trunk/'
 
@@ -180,8 +186,8 @@ alias miku='ruby ~/tools/mikutter/mikutter.rb > /dev/null 2>&1 &'
 alias gibo='~/tools/gibo/gibo'
 
 # zmv
-autoload -Uz zmv
-alias zmv='noglob zmv -W'
+# autoload -Uz zmv
+# alias zmv='noglob zmv -W'
 
 function resetmount(){
     killall -9 sshfs;
@@ -216,9 +222,10 @@ function my_enter {
 zle -N my_enter
 bindkey '^m' my_enter
 
-export EDITOR='emacsclient'
+export EDITOR='emacsclient -nw'
 export SHELL='zsh'
 export DATA_DIR=$HOME'/data'
+# export DATA_DIR='/mnt/hdd/data'
 
 [[ -e "$HOME/.tmuxinator/tmuxinator.zsh" ]] && source "$HOME/.tmuxinator/tmuxinator.zsh"
 [[ -e "$HOME/.env_settings" ]] && source "$HOME/.env_settings"
