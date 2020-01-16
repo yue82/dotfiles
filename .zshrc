@@ -133,7 +133,8 @@ case ${OSTYPE} in
     linux*)
         #Linux用の設定
         alias ls='ls -F --color=auto'
-        if uname -r | grep -i 'microsoft' > /dev/null ; then
+        if uname -r | grep -i 'microsoft' > /dev/null ; then # WSL
+            alias xdg-open=wsl-open
             alias open=wsl-open
         else
             alias open=xdg-open
