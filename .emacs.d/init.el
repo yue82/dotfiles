@@ -759,10 +759,11 @@
 (setq markdown-list-indent-width 2)
 
 ;; erlang mode
-(setq load-path (cons  "/usr/lib/erlang/lib/tools-2.8.3/emacs/"
+(add-to-list 'ac-modes ' erlang-mode)
+(setq load-path (cons  "/usr/local/lib/erlang/lib/tools-2.8.1/emacs/"
                        load-path))
-(setq erlang-root-dir "/usr/lib/erlang")
-(setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
+(setq erlang-root-dir "/usr/local/lib/erlang")
+(setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
 (require 'erlang-start)
 
 
