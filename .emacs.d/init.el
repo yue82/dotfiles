@@ -514,9 +514,14 @@
 (global-set-key (kbd "C-c g") 'helm-git-grep)
 (define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
 
-;; find grep
+;; find file
 (global-unset-key (kbd "C-c f"))
-(global-set-key (kbd "C-c f") 'find-grep)
+(global-set-key (kbd "C-c f") 'helm-find)
+
+;; find grep
+(global-unset-key (kbd "C-c C-g"))
+(global-set-key (kbd "C-c C-g") 'find-grep)
+
 
 ;; evernote
 (require 'geeknote)
