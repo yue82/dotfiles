@@ -195,7 +195,7 @@ function resetmount(){
 }
 
 #プロンプト表示
-PROMPT="[%* %n%(?.%{${fg[green]}%}.%{${fg[red]}%})@%{${reset_color}%}%m]%1~ %(!,#,$) "
+PROMPT="[%* %n%(?.%{${fg[green]}%}.%{${fg[red]}%})@%{${reset_color}%}%m%(?.. <%{${fg[red]}%}%?%{${reset_color}%}>)] %1~ %(!,#,$) "
 
 # ヒストリーに時刻を記録．-dで時刻付き表示，-fで日付時刻付き表示
 setopt extended_history
