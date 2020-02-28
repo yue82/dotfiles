@@ -100,6 +100,9 @@
     ("n" . next-buffer-skipping-special-buffer)
     ))
 
+;; バッファリストの名前部分を長めに
+(setq Buffer-menu-name-width 42)
+(setq helm-buffer-max-length 42)
 
 ;;;;; ----------
 ;;;;; Display
