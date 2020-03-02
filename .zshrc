@@ -47,12 +47,48 @@ zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
 
-zstyle ':vcs_info:*' formats '%F{green}%s-[%r/%b]%f'
-zstyle ':vcs_info:*' actionformats '%F{red}%s-[%r/%b|%a]%f'
+local -A info_formats
+info_formats=(
+    vcs_source '"%s"'
+    base-name  '"%r"'
+    branch     '"%b"'
+    revision   '"%i"'
+    staged     '"%c"'
+    unstaged   '"%u"'
+    action     '"%a"'
+)
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' get-revision true
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' unstagedstr "*"  # %u で表示する文字列
+zstyle ':vcs_info:*' stagedstr "+"    # %c で表示する文字列
+zstyle ':vcs_info:*' formats "${(kv)info_formats}"
+zstyle ':vcs_info:*' actionformats "${(kv)info_formats}"
 
 function _update_vcs_info_msg() {
+    local git_prompt
     LANG=en_US.UTF-8 vcs_info
-    RPROMPT="${vcs_info_msg_0_}"
+
+    local -A GIT_INFO
+    GIT_INFO=($(printf "$vcs_info_msg_0_"))
+    GIT_INFO=("${(kv@)${(kv@)GIT_INFO#\"}%\"}")
+    # revision-short
+    [[ -n $GIT_INFO[revision] ]] && GIT_INFO[revision_short]=${(r:7:)GIT_INFO[revision]}
+
+    git_prompt=""
+    if [[ -n ${vcs_info_msg_0_} ]]; then
+        if [[ -n ${vcs_info_msg_2_} ]]; then
+            git_prompt+="%F{red}"
+        else
+            git_prompt+="%F{green}"
+        fi
+        git_prompt+="${GIT_INFO[vcs_source]}-[${GIT_INFO[base-name]}/${GIT_INFO[branch]}-${GIT_INFO[revision_short]}"
+        if [[ -n ${vcs_info_msg_2_} ]]; then
+            git_prompt+="|${GIT_INFO[action]}"
+        fi
+        git_prompt+="]${GIT_INFO[unstaged]}${GIT_INFO[staged]}%f"
+    fi
+    RPROMPT="$git_prompt"
 }
 add-zsh-hook precmd _update_vcs_info_msg
 
@@ -195,7 +231,7 @@ function resetmount(){
 }
 
 #プロンプト表示
-PROMPT="[%* %n%(?.%{${fg[green]}%}.%{${fg[red]}%})@%{${reset_color}%}%m%(?.. <%{${fg[red]}%}%?%{${reset_color}%}>)] %1~ %(!,#,$) "
+PROMPT="[%* %n%(?.%{${fg[green]}%}.%{${fg[red]}%})@%{${reset_color}%}%m]%(?.. <%{${fg[red]}%}%?%{${reset_color}%}>) %1~ %(!,#,$) "
 
 # ヒストリーに時刻を記録．-dで時刻付き表示，-fで日付時刻付き表示
 setopt extended_history
