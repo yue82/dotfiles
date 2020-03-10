@@ -242,13 +242,12 @@ function my_enter {
         builtin zle .accept-line
         return 0
     fi
+    echo ''
     case $[MY_ENTER_COUNT++] in
         0)
-            echo ''
             echo "${fg[cyan]}"$(pwd)"${reset_color}"
             ;;
         1)
-            echo ''
             ls
             unset MY_ENTER_COUNT
             ;;
