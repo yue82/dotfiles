@@ -1,7 +1,8 @@
 (require 'package)
 
-;; MELPAのみ追加
+;; GNUとMELPAのみ追加
 (setq package-archives nil)
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
