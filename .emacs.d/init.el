@@ -387,10 +387,10 @@
 ;;;;; ----------
 
 ;; align-regexp
-(global-set-key (kbd "C-c A") 'align-regexp)
+(global-set-key (kbd "C-c a") 'align-regexp)
 
 ;; バッファ同期スクロール
-(global-set-key (kbd "C-c S") 'scroll-all-mode)
+(global-set-key (kbd "C-c s") 'scroll-all-mode)
 
 
 ;;;;; ----------
@@ -503,7 +503,6 @@
 (defalias 'yas/table-hash 'yas--table-hash)
 
 ;; magit
-(global-unset-key (kbd "C-c C-m"))
 (global-unset-key (kbd "C-c m"))
 (global-set-key (kbd "C-c m") 'magit-status)
 (setq magit-diff-refine-hunk t)
