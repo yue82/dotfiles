@@ -530,14 +530,6 @@
 
 ;; bm
 (require 'bm)
-(add-hook 'find-file-hook 'bm-buffer-restore)
-(add-hook 'kill-buffer-hook 'bm-buffer-save)
-(add-hook 'after-save-hook 'bm-buffer-save)
-(add-hook 'after-revert-hook 'bm-buffer-restore)
-(add-hook 'vc-before-checkin-hook 'bm-buffer-save)
-(add-hook 'kill-emacs-hook '(lambda nil
-                              (bm-buffer-save-all)
-                              (bm-repository-save)))
 (global-set-key (kbd "M-p") 'bm-previous)
 (global-set-key (kbd "M-n") 'bm-next)
 (set-face-foreground 'bm-persistent-face nil)
@@ -545,22 +537,33 @@
 (set-face-attribute 'bm-persistent-face nil
                     :inherit 'highlight-sub2)
 
+;; 永続化
 (setq bm-repository-file "~/.emacs.d/bm-repository")
 (setq-default bm-buffer-persistence t)
 (setq bm-restore-repository-on-load t)
-;; (add-hook 'after-init-hook 'bm-repository-load-and-open)
-(defun bm-buffer-restore-safe ()
-  (ignore-errors (bm-buffer-restore)))
-(add-hook 'find-file-hooks 'bm-buffer-restore-safe)
-(add-hook 'kill-buffer-hook 'bm-buffer-save)
+(add-hook 'after-init-hook 'bm-repository-load)
+
+(defun bm-open-files-in-repository ()
+  (interactive)
+  (cl-loop for (key . _) in bm-repository
+           when (file-exists-p key)
+           do (find-file-noselect key)))
+(global-set-key (kbd "C-c M-SPC") 'bm-open-files-in-repository)
+
+;; 別で開いているemacsのbmを上書きして消さないようにloadしてからsave
 (defun bm-save-to-repository ()
   (interactive)
   (unless noninteractive
+    (bm-repository-load)
     (bm-buffer-save-all)
     (bm-repository-save)))
 (add-hook 'kill-emacs-hook 'bm-save-to-repository)
 (run-with-idle-timer 600 t 'bm-save-to-repository)
+(defun bm-buffer-restore-safe ()
+  (ignore-errors (bm-buffer-restore)))
+(add-hook 'find-file-hooks 'bm-buffer-restore-safe)
 (add-hook 'after-revert-hook 'bm-buffer-restore)
+(add-hook 'kill-buffer-hook 'bm-buffer-save)
 (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
 (add-hook 'before-save-hook 'bm-buffer-save)
 
