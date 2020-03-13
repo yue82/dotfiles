@@ -543,12 +543,12 @@
 (setq bm-restore-repository-on-load t)
 (add-hook 'after-init-hook 'bm-repository-load)
 
-(defun bm-open-files-in-repository ()
+(defun bm-find-open-files-in-repository ()
   (interactive)
   (cl-loop for (key . _) in bm-repository
            when (file-exists-p key)
            do (find-file-noselect key)))
-(global-set-key (kbd "C-c M-SPC") 'bm-open-files-in-repository)
+(global-set-key (kbd "C-c M-SPC") 'bm-find-open-files-in-repository)
 
 ;; 別で開いているemacsのbmを上書きして消さないようにloadしてからsave
 (defun bm-save-to-repository ()
