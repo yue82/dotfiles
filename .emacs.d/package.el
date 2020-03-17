@@ -15,7 +15,7 @@
     pkg-info
     dakrone-theme boron-theme
     csv-mode go-mode lua-mode python-mode sbt-mode scala-mode scss-mode web-mode yaml-mode
-    ruby-mode ruby-electric markdown-mode cmake-mode
+    ruby-mode ruby-electric markdown-mode cmake-mode jinja2-mode
     s pcache
     auto-complete popup pos-tip
     helm bm helm-bm helm-gtags flycheck flycheck-pos-tip flymake-coffee flymake-cursor flymake-easy flyspell-popup
