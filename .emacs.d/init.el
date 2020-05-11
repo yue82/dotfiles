@@ -248,6 +248,16 @@
 (set-face-foreground 'indent-guide-face "paleturquoise4")
 (setq indent-guide-recursive t)
 
+;; diff
+(defun update-diff-refine-colors ()
+  " update the colors for diff faces"
+  (set-face-inverse-video 'diff-refine-added t)
+  (set-face-inverse-video 'diff-refine-changed t)
+  (set-face-inverse-video 'diff-refine-removed t)
+  )
+(eval-after-load "diff-mode"
+  '(update-diff-refine-colors))
+
 
 ;;;;; ----------
 ;;;;; Edit
