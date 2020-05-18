@@ -36,13 +36,13 @@ echo "lang en_US" > ~/.aspell.conf
 
 
 # change login shell
-if [ $(chsh --list-shells | grep -e '/bin/zsh') ]; then
-    echo "zsh is found. Do you set login sh as zsh? [Y/n]"
+for zsh_path in `cat /etc/shells | grep 'zsh'`; do
+    echo "Do you set login sh as $zsh_path? [Y/n]"
     read ANSWER
     case $ANSWER in
-        "" | "Y" | "y" ) chsh -s /bin/zsh;;
-        * ) echo "login shell: "$SHELL;;
+        "" | "Y" | "y" )
+            chsh -s /bin/zsh; break;;
+        * ) ;;
     esac
-else
-    echo "login shell: "$SHELL
-fi
+done
+echo "login shell: "$SHELL
