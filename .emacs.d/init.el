@@ -183,16 +183,20 @@
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-;; rainbow-delimitersの括弧の色を強調
+;; rainbow-delimitersの括弧の色をカラーコードに
 (require 'cl-lib)
 (require 'color)
- (defun rainbow-delimiters-using-stronger-colors ()
-  (cl-loop
-   for index from 1 to rainbow-delimiters-max-face-count
-   do
-   (let ((face (intern (format "rainbow-delimiters-depth-%d-face" index))))
-    (cl-callf color-saturate-name (face-foreground face) 30))))
-(add-hook 'emacs-startup-hook 'rainbow-delimiters-using-stronger-colors)
+(rainbow-delimiters-mode 1)
+(setq rainbow-delimiters-outermost-only-face-count 1)
+(set-face-foreground 'rainbow-delimiters-depth-1-face "#9a4040")
+(set-face-foreground 'rainbow-delimiters-depth-2-face "#ff5e5e")
+(set-face-foreground 'rainbow-delimiters-depth-3-face "#ffaa77")
+(set-face-foreground 'rainbow-delimiters-depth-4-face "#dddd77")
+(set-face-foreground 'rainbow-delimiters-depth-5-face "#80ee80")
+(set-face-foreground 'rainbow-delimiters-depth-6-face "#66bbff")
+(set-face-foreground 'rainbow-delimiters-depth-7-face "#da6bda")
+(set-face-foreground 'rainbow-delimiters-depth-8-face "#afafaf")
+(set-face-foreground 'rainbow-delimiters-depth-9-face "#f0f0f0")
 
 ;;行ハイライト
 (require 'hl-line)
