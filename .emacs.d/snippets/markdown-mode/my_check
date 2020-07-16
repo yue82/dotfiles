@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: my_check
+# key: c
+# --
+- { } $1
