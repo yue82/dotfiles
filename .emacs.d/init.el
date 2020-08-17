@@ -564,11 +564,11 @@
            do (find-file-noselect key)))
 (global-set-key (kbd "C-c M-SPC") 'bm-find-open-files-in-repository)
 
-;; 別で開いているemacsのbmを上書きして消さないようにloadしてからsave
+;; 別で開いているemacsのbmは上書きされるので注意
 (defun bm-save-to-repository ()
   (interactive)
   (unless noninteractive
-    (bm-repository-load)
+    ;; (bm-repository-load)
     (bm-buffer-save-all)
     (bm-repository-save)))
 (add-hook 'kill-emacs-hook 'bm-save-to-repository)
