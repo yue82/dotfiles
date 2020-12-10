@@ -17,7 +17,7 @@
     csv-mode go-mode lua-mode python-mode sbt-mode scala-mode scss-mode web-mode yaml-mode
     ruby-mode ruby-electric markdown-mode cmake-mode jinja2-mode
     s pcache
-    auto-complete popup pos-tip
+    auto-complete popup pos-tip path-headerline-mode
     helm bm helm-bm helm-gtags flycheck flycheck-pos-tip flymake-coffee flymake-cursor flymake-easy flyspell-popup
     magit magit-popup git-commit git-gutter gh logito gitconfig-mode gitignore-mode helm-git-grep
     anzu visual-regexp visual-regexp-steroids iedit multiple-cursors smartrep
