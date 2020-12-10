@@ -221,9 +221,6 @@ alias psgrep='ps aux | grep'
 alias miku='ruby ~/tools/mikutter/mikutter.rb > /dev/null 2>&1 &'
 alias gibo='~/tools/gibo/gibo'
 
-# zmv
-# autoload -Uz zmv
-# alias zmv='noglob zmv -W'
 
 function resetmount(){
     killall -9 sshfs;
