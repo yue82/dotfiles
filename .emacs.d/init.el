@@ -514,7 +514,27 @@
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (eval-after-load 'flycheck
   '(custom-set-variables
-   '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+    '(flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+
+(set-face-foreground 'flycheck-error "tomato1")
+(set-face-background 'flycheck-error "tomato4")
+(set-face-foreground 'flycheck-warning "khaki1")
+(set-face-foreground 'flycheck-info "yellowgreen")
+
+;; flycheck-color-mode-line
+(require 'flycheck-color-mode-line)
+(eval-after-load "flycheck"
+  '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+
+(set-face-attribute 'flycheck-color-mode-line-error-face nil
+                    :inherit nil
+                    :background "tomato1")
+(set-face-attribute 'flycheck-color-mode-line-warning-face nil
+                    :inherit nil
+                    :background "khaki1")
+(set-face-attribute 'flycheck-color-mode-line-info-face nil :inherit nil)
+(set-face-attribute 'flycheck-color-mode-line-success-face nil :inherit nil)
+
 
 ;; howm
 (setq howm-ref-header "-->")
