@@ -436,7 +436,6 @@
 
 ;; path-headerline-mode
 (require 'path-headerline-mode)
-(path-headerline-mode +1)
 
 ;;;;; ----------
 ;;;;; Key bind
