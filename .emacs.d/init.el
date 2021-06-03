@@ -248,7 +248,7 @@
 
 ;; indent-guide
 (require 'indent-guide)
-(indent-guide-global-mode)
+;; (indent-guide-global-mode)
 (set-face-foreground 'indent-guide-face "paleturquoise4")
 (setq indent-guide-recursive t)
 
@@ -538,7 +538,7 @@
 ;; howm
 (setq howm-ref-header "-->")
 (setq howm-keyword-header "<--")
-(setq action-lock-switch-default '("{ }" "{-}" "{*}" "{!}" "{?}" "{w}" "{p}" "{x}"))
+(setq action-lock-switch-default '("[ ]" "[-]" "[*]" "[!]" "[w]" "[p]" "[x]" "[o]" "[?]"))
 (setq action-lock-open-regexp
       "\\<-->\\(localhost\\)?\\([-!@#$%^&*()_+|=:~/?a-zA-Z0-9.,;]*[-!@#$%^&*()_+|=:~/?a-zA-Z0-9]+\\)\\>")
 (setq action-lock-open-regexp-pos 2)
@@ -842,6 +842,7 @@
              (electric-indent-mode 0)
 ))
 (setq markdown-list-indent-width 2)
+(setq markdown-make-gfm-checkboxes-buttons nil)
 
 ;; erlang mode
 (add-to-list 'ac-modes ' erlang-mode)
