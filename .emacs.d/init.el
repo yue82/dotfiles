@@ -220,7 +220,6 @@
 (setq whitespace-style '(face           ; faceで可視化
                          trailing       ; 行末
                          empty          ; 空行
-                         spaces
                          tabs
                          space-mark     ; マークを表示
                          tab-mark
@@ -236,10 +235,6 @@
 (set-face-foreground 'whitespace-empty "yellow")
 (set-face-background 'whitespace-empty 'nil)
 (set-face-underline  'whitespace-empty t)
-
-(set-face-foreground 'whitespace-space "yellow")
-(set-face-background 'whitespace-space 'nil)
-(set-face-underline  'whitespace-space 'nil)
 
 (set-face-foreground 'whitespace-tab "yellow")
 (set-face-background 'whitespace-tab 'nil)
@@ -846,7 +841,7 @@
 
 ;; erlang mode
 (add-to-list 'ac-modes ' erlang-mode)
-(setq load-path (cons  "/usr/local/lib/erlang/lib/tools-2.8.1/emacs/"
+(setq load-path (cons  "/usr/local/lib/erlang/lib/tools-2.11.2.2/emacs/"
                        load-path))
 (setq erlang-root-dir "/usr/local/lib/erlang")
 (setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
@@ -861,6 +856,16 @@
     erlang-electric-newline
     )
   "*List of activated electric commands.")
+
+;; go mode
+(defun my-go-mode-hook ()
+  (setq whitespace-style '(face           ; faceで可視化
+                           trailing       ; 行末
+                           empty          ; 空行
+                           space-mark     ; マークを表示
+                           )
+        ))
+(add-hook 'go-mode-hook 'my-go-mode-hook)
 
 ;;;;; ----------
 

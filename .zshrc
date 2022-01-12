@@ -82,7 +82,7 @@ function _update_vcs_info_msg() {
         else
             git_prompt+="%F{green}"
         fi
-        git_prompt+="${GIT_INFO[vcs_source]}-[${GIT_INFO[base-name]}/${GIT_INFO[branch]}-${GIT_INFO[revision_short]}"
+        git_prompt+="${GIT_INFO[vcs_source]}-[${GIT_INFO[base-name]} ${GIT_INFO[branch]} ${GIT_INFO[revision_short]}"
         if [[ -n ${vcs_info_msg_2_} ]]; then
             git_prompt+="|${GIT_INFO[action]}"
         fi
@@ -175,7 +175,7 @@ case ${OSTYPE} in
         else
             alias open=xdg-open
         fi
-        export GOPATH=$HOME/go
+        export GOPATH=$HOME/tools/go
         export PATH=$PATH:$GOPATH/bin
         ;;
     cygwin*)
