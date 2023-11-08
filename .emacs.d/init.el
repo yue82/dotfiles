@@ -20,6 +20,9 @@
 ;; ファイル自動更新
 (global-auto-revert-mode 1)
 
+;; 行移動時にカラム位置を固定しない
+(put 'set-goal-column 'disabled nil)
+
 ;; yes or noをy or nにする
 (fset 'yes-or-no-p 'y-or-n-p)
 
