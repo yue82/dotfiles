@@ -176,7 +176,7 @@
               (count-lines (region-beginning) (region-end))
               (- (region-end) (region-beginning)))
     ""))
-(add-to-list 'default-mode-line-format
+(add-to-list 'mode-line-format
              '(:eval (count-lines-and-chars)))
 
 ;; 括弧ハイライト
@@ -490,7 +490,7 @@
 
 ;; helm
 (require 'helm)
-(require 'helm-config)
+;; (require 'helm-config)
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 (global-unset-key (kbd "C-x c"))
 
