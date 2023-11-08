@@ -140,11 +140,31 @@
 (column-number-mode t)
 
 ;;行数表示
-(global-linum-mode t)
-(set-face-foreground 'linum "gray64")
-(set-face-background 'linum "gray8")
-(set-face-underline 'linum nil)
-(setq linum-format "%5d ")
+(if (version<= "26.0.50" emacs-version)
+    (progn
+      ;; display-line-numbers
+      (global-display-line-numbers-mode)
+      (set-face-foreground 'line-number-current-line "limegreen")
+      (set-face-background 'line-number-current-line "black")
+      )
+  (progn
+    ;; linum-mode
+    (global-linum-mode t)
+    (set-face-foreground 'linum "gray64")
+    (set-face-background 'linum "gray8")
+    (set-face-underline 'linum nil)
+    (setq linum-format "%5d ")
+    )
+  )
+
+;; 行番号ハイライト
+(if (version<= "26.0.50" emacs-version) ()
+    (progn
+      (require 'hlinum)
+      (hlinum-activate)
+      (set-face-foreground 'linum-highlight-face "limegreen")
+      (set-face-background 'linum-highlight-face "black")
+      ))
 
 ;; 行&文字数カウント
 (defun count-lines-and-chars ()
@@ -155,12 +175,6 @@
     ""))
 (add-to-list 'default-mode-line-format
              '(:eval (count-lines-and-chars)))
-
-;; 行番号ハイライト
-(require 'hlinum)
-(hlinum-activate)
-(set-face-foreground 'linum-highlight-face "limegreen")
-(set-face-background 'linum-highlight-face "black")
 
 ;; 括弧ハイライト
 (show-paren-mode t)
@@ -468,6 +482,8 @@
 (setq neo-persist-show t)
 (setq neo-keymap-style 'concise)
 (setq neo-smart-open t)
+  (add-hook 'neo-after-create-hook
+            (lambda (&rest _) (display-line-numbers-mode -1)))
 
 ;; helm
 (require 'helm)
@@ -577,9 +593,18 @@
 (global-set-key (kbd "C-c m") 'magit-status)
 (setq magit-diff-refine-hunk t)
 
-;; git gutter
-(global-git-gutter-mode t)
-(set-face-background 'git-gutter:unchanged "gray8")
+;; diff-hl
+(global-diff-hl-mode)
+(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
+(unless (window-system) (diff-hl-margin-mode))
+(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+(set-face-foreground 'diff-hl-insert "green")
+(set-face-foreground 'diff-hl-delete "red")
+(set-face-foreground 'diff-hl-change "cyan")
+(set-face-background 'diff-hl-insert nil)
+(set-face-background 'diff-hl-delete nil)
+(set-face-background 'diff-hl-change nil)
 
 ;; git grep
 (global-unset-key (kbd "C-c g"))
