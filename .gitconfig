@@ -11,7 +11,7 @@
 	postBuffer = 524288000
 [alias]
 	co = checkout
-	cm = commit
+	cm = commit -m
 	p = !git push origin `git rev-parse --abbrev-ref HEAD`
 	unstage = reset -q HEAD --
 	discard = checkout --

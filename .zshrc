@@ -176,7 +176,7 @@ case ${OSTYPE} in
             alias open=xdg-open
         fi
         export GOPATH=$HOME/tools/go
-        export PATH=$PATH:$GOPATH/bin
+        export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
         ;;
     cygwin*)
         export DISPLAY=:0.0

@@ -3,7 +3,7 @@
 ;;;;; ----------
 
 (require 'gnutls)
-(package-initialize)
+;; (package-initialize)
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/el"))
@@ -722,8 +722,8 @@
 
 
 ;; 鬼軍曹
-(require 'drill-instructor)
-(setq drill-instructor-global t)
+;; (require 'drill-instructor)
+;; (setq drill-instructor-global t)
 
 
 ;;;;; ----------
@@ -875,7 +875,6 @@
 (setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
 (require 'erlang-start)
 
-
 (defvar erlang-electric-commands
   '(
     ;; erlang-electric-comma
@@ -887,12 +886,16 @@
 
 ;; go mode
 (defun my-go-mode-hook ()
-  (setq whitespace-style '(face           ; faceで可視化
-                           trailing       ; 行末
-                           empty          ; 空行
-                           space-mark     ; マークを表示
-                           )
-        ))
+     (setq whitespace-style '(face           ; faceで可視化
+                              trailing       ; 行末
+                              empty          ; 空行
+                              space-mark     ; マークを表示
+                              )
+           )
+     (flycheck-mode -1)
+     (flymake-go-staticcheck-enable)
+     (flymake-mode)
+  )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 (add-hook 'before-save-hook 'gofmt-before-save)
 
