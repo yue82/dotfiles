@@ -519,6 +519,7 @@
 
 (setq helm-autoresize-max-height 0)
 (setq helm-autoresize-min-height 20)
+(setq helm-allow-mouse nil)
 (helm-autoresize-mode 1)
 (helm-mode 1)
 
@@ -609,14 +610,15 @@
 (set-face-background 'diff-hl-delete nil)
 (set-face-background 'diff-hl-change nil)
 
+;; find file
+(global-unset-key (kbd "C-c f"))
+(global-set-key (kbd "C-c f") 'helm-find)
+
 ;; git grep
 (global-unset-key (kbd "C-c g"))
 (global-set-key (kbd "C-c g") 'helm-git-grep)
 (define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
-
-;; find file
-(global-unset-key (kbd "C-c f"))
-(global-set-key (kbd "C-c f") 'helm-find)
+(global-set-key (kbd "C-c w") 'helm-git-grep-at-point)
 
 ;; find grep
 (global-unset-key (kbd "C-c C-g"))

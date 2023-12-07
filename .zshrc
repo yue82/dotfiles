@@ -254,7 +254,7 @@ function my_enter {
 zle -N my_enter
 bindkey '^m' my_enter
 
-export EDITOR='emacsclient -nw'
+export EDITOR='emacsclient --alternate-editor emacs'
 export SHELL='zsh'
 export DATA_DIR=$HOME'/data'
 # export DATA_DIR='/mnt/hdd/data'
