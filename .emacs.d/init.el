@@ -640,6 +640,8 @@
 (global-unset-key (kbd "C-c g"))
 (global-set-key (kbd "C-c g") 'helm-git-grep)
 (define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
+(eval-after-load 'helm
+  '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
 (global-set-key (kbd "C-c w") 'helm-git-grep-at-point)
 
 ;; find grep
