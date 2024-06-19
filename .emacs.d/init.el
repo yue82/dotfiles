@@ -468,6 +468,7 @@
 (require 'undo-tree)
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
+(setq undo-tree-auto-save-history nil)
 
 ;; undohist
 (require 'undohist)
@@ -485,8 +486,8 @@
 (setq neo-persist-show t)
 (setq neo-keymap-style 'concise)
 (setq neo-smart-open t)
-  (add-hook 'neo-after-create-hook
-            (lambda (&rest _) (display-line-numbers-mode -1)))
+(add-hook 'neo-after-create-hook
+          (lambda (&rest _) (display-line-numbers-mode -1)))
 
 ;; helm
 (require 'helm)
@@ -609,6 +610,27 @@
 (set-face-background 'diff-hl-insert nil)
 (set-face-background 'diff-hl-delete nil)
 (set-face-background 'diff-hl-change nil)
+
+;; display-line-numbers と diff-hl を同期してON/OFF
+(define-minor-mode mylinum-minor-mode
+  "minor mode for mylinum"
+  :init-value '(display-line-numbers-mode)
+  )
+(defun mylinum ()
+  (interactive)
+  (if (bound-and-true-p mylinum-minor-mode)
+      (progn
+        (diff-hl-mode -1)
+        (display-line-numbers-mode -1)
+        (mylinum-minor-mode -1)
+        )
+    (progn
+      (diff-hl-mode 1)
+      (display-line-numbers-mode 1)
+      (mylinum-minor-mode 1)
+      )
+    )
+  )
 
 ;; find file
 (global-unset-key (kbd "C-c f"))
