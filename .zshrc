@@ -196,14 +196,8 @@ alias ll='ls -alF'
 alias l='ls'
 
 alias emacs='TERM=xterm-256color emacs -nw'
-alias e='TERM=xterm-256color emacsclient -c -a "" -nw'
+alias e='TERM=xterm-256color emacsclient -nw --alternate-editor=""'
 alias ekill="emacsclient -e '(kill-emacs)'"
-
-if ! emacsclient -e 0 > /dev/null 2>&1; then
-    cd > /dev/null 2>&1
-    emacs --daemon
-    cd - > /dev/null 2>&1
-fi
 
 alias cdw='cd ~/trunk/'
 
@@ -254,7 +248,7 @@ function my_enter {
 zle -N my_enter
 bindkey '^m' my_enter
 
-export EDITOR='emacsclient --alternate-editor emacs'
+export EDITOR='emacsclient -nw --alternate-editor=""'
 export SHELL='zsh'
 export DATA_DIR=$HOME'/data'
 # export DATA_DIR='/mnt/hdd/data'

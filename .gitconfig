@@ -6,7 +6,7 @@
 	rebase = true
 	ff = only
 [core]
-	editor = emacsclient --alternate-editor emacs
+	editor = emacsclient -nw --alternate-editor ""
 [http]
 	postBuffer = 524288000
 [alias]
