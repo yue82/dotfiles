@@ -171,10 +171,13 @@ case ${OSTYPE} in
         alias ls='ls -F --color=auto'
         if uname -r | grep -i 'microsoft' > /dev/null ; then # WSL
             alias xdg-open=wsl-open
-            alias open=wsl-open
+            alias open=my-wsl-open
         else
             alias open=xdg-open
         fi
+        export LANG=C.UTF-8
+        export LC_CTYPE=C.UTF-8
+        export LC_ALL=C.UTF-8
         export GOPATH=$HOME/tools/go
         export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
         ;;
@@ -203,8 +206,9 @@ alias cdw='cd ~/trunk/'
 
 alias gti='git'
 
-alias py27='. ~/venv/py27/bin/activate'
-alias py34='. ~/venv/py34/bin/activate'
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 
 alias bsync_here='browser-sync start --server --files "**/*"'
 
@@ -275,3 +279,13 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 # zmv
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
+
+my-wsl-open() {
+  if [ $# -ne 1 ]; then return 1; fi
+  if [ -e "$1" ]; then
+    local winpath=$(readlink -f "$1" | xargs -0 wslpath -w)
+    powershell.exe start "\"${winpath%?}\""
+  else
+    powershell.exe start "$1"
+  fi
+}
