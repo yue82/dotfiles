@@ -890,7 +890,7 @@
              (electric-indent-local-mode -1)
              (electric-indent-mode 0)
 ))
-(setq markdown-list-indent-width 2)
+(setq markdown-list-indent-width 4)
 (setq markdown-make-gfm-checkboxes-buttons nil)
 
 ;; erlang mode
@@ -899,7 +899,7 @@
                        load-path))
 (setq erlang-root-dir "/usr/local/lib/erlang")
 (setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
-(require 'erlang-start)
+;; (require 'erlang-start)
 
 (defvar erlang-electric-commands
   '(

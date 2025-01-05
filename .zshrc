@@ -203,12 +203,9 @@ alias e='TERM=xterm-256color emacsclient -nw --alternate-editor=""'
 alias ekill="emacsclient -e '(kill-emacs)'"
 
 alias cdw='cd ~/trunk/'
+alias cdh='cd /mnt/c/Users/yue/'
 
 alias gti='git'
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
 
 alias bsync_here='browser-sync start --server --files "**/*"'
 
@@ -254,8 +251,6 @@ bindkey '^m' my_enter
 
 export EDITOR='emacsclient -nw --alternate-editor=""'
 export SHELL='zsh'
-export DATA_DIR=$HOME'/data'
-# export DATA_DIR='/mnt/hdd/data'
 
 [[ -e "$HOME/.tmuxinator/tmuxinator.zsh" ]] && source "$HOME/.tmuxinator/tmuxinator.zsh"
 [[ -e "$HOME/.env_settings" ]] && source "$HOME/.env_settings"
@@ -268,8 +263,10 @@ export GTEST_LIBDIR=$GTEST_ROOT"/googletest"
 export GTEST_INCLUDE_DIR=$GTEST_ROOT"/googletest/include"
 
 export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/bin:/usr/bin/openssl/bin:$PATH"
 
 export PYENV_ROOT="$HOME/.pyenv"
+export PYTHONPATH="$PYTHONPATH:/usr/local/lib"
 export PATH="$PYENV_ROOT/bin:$PATH"
 [[ -s "$HOME/.pyenv" ]] && eval "$(pyenv init -)"
 
