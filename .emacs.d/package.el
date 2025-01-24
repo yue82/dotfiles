@@ -19,7 +19,7 @@
     s pcache
     auto-complete popup pos-tip path-headerline-mode
     helm bm helm-bm helm-gtags flycheck flycheck-pos-tip flymake-coffee flymake-cursor flymake-easy flyspell-popup
-    magit magit-popup git-commit diff-hl gh logito gitconfig-mode gitignore-mode helm-git-grep
+    magit magit-popup diff-hl gh logito helm-git-grep
     anzu visual-regexp visual-regexp-steroids iedit multiple-cursors smartrep
     yatex geeknote gist howm yasnippet yasnippet-snippets neotree undo-tree undohist popwin scratch-pop
     hlinum hiwin indent-guide volatile-highlights rainbow-delimiters smartparens
