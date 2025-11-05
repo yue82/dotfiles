@@ -885,13 +885,13 @@
 
 ;; markdown
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(setq markdown-make-gfm-checkboxes-buttons nil)
+(setq markdown-list-indent-width 4)
 (add-hook 'markdown-mode-hook
           '(lambda ()
              (electric-indent-local-mode -1)
              (electric-indent-mode 0)
 ))
-(setq markdown-list-indent-width 4)
-(setq markdown-make-gfm-checkboxes-buttons nil)
 
 ;; erlang mode
 (add-to-list 'ac-modes ' erlang-mode)
