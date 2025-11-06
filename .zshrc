@@ -198,10 +198,6 @@ alias la='ls -A'
 alias ll='ls -alF'
 alias l='ls'
 
-alias emacs='TERM=xterm-256color emacs -nw'
-alias e='TERM=xterm-256color emacsclient -nw --alternate-editor=""'
-alias ekill="emacsclient -e '(kill-emacs)'"
-
 alias cdw='cd ~/trunk/'
 alias cdh='cd /mnt/c/Users/yue/'
 
@@ -249,7 +245,7 @@ function my_enter {
 zle -N my_enter
 bindkey '^m' my_enter
 
-export EDITOR='emacsclient -nw --alternate-editor=""'
+export EDITOR='emacsclient -t -a emacs'
 export SHELL='zsh'
 
 [[ -e "$HOME/.tmuxinator/tmuxinator.zsh" ]] && source "$HOME/.tmuxinator/tmuxinator.zsh"
@@ -262,7 +258,6 @@ export GTEST_ROOT="$HOME/tools/googletest"
 export GTEST_LIBDIR=$GTEST_ROOT"/googletest"
 export GTEST_INCLUDE_DIR=$GTEST_ROOT"/googletest/include"
 
-export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/bin:/usr/bin/openssl/bin:$PATH"
 
 export PYENV_ROOT="$HOME/.pyenv"
@@ -286,3 +281,74 @@ my-wsl-open() {
     powershell.exe start "$1"
   fi
 }
+
+export EMACS_SERVER_FILE="$HOME/.emacs.d/server/"
+
+show-emacs-server() {
+    EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
+    if emacsclient -s "${EMACS_SERVER_NAME}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
+        echo "server: ${EMACS_SERVER_NAME}"
+        return 0
+    else
+        echo "No emacs server."
+        return 1
+    fi
+}
+
+ensure-window-emacs-server() {
+    if [ -z "$TMUX" ]; then
+        return 0
+    fi
+    EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
+    if emacsclient -s "${EMACS_SERVER_NAME}" -e "(message \"\n\")" > /dev/null 2>&1; then
+        return 0
+    else
+        emacs --daemon="${EMACS_SERVER_NAME}" > /dev/null 2>&1 &
+        local i=0
+        local MAX_TRIES=10
+        while [ $i -lt $MAX_TRIES ]; do
+            if emacsclient -s "${EMACS_SERVER_NAME}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
+                return 0
+            fi
+            sleep 1
+            i=$((i + 1))
+        done
+        return 1
+    fi
+}
+
+window-emacs-client() {
+    if [ -z "$TMUX" ]; then
+        emacsclient -t -a emacs "$@"
+        return $?
+    fi
+    EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
+    ensure-window-emacs-server
+    emacsclient -s "${EMACS_SERVER_NAME}" -t -a emacs "$@"
+}
+
+ekill() {
+    if [ -z "$TMUX" ]; then
+        return 1
+    fi
+    local EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
+    if emacsclient -s "${EMACS_SERVER_NAME}" -n -e '(kill-emacs)' > /dev/null 2>&1; then
+        sleep 0.2
+        if emacsclient -s "${EMACS_SERVER_NAME}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
+            return 1
+        else
+            rm -f "${EMACS_SERVER_FILE}${EMACS_SERVER_NAME}"*
+            return 0
+        fi
+    else
+        rm -f "${EMACS_SERVER_FILE}${EMACS_SERVER_NAME}"*
+        return 0
+    fi
+}
+
+alias e='window-emacs-client'
+export EDITOR="zsh -i -c 'window-emacs-client'"
+export VISUAL="$EDITOR"
+
+[[ -s ~/.profile ]] && source ~/.profile
+[[ -s ~/.env_settings ]] && source ~/.env_settings

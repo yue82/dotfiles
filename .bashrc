@@ -89,8 +89,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias emacs='emacs -nw'
-
 alias gti='git'
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -116,6 +114,13 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# my custom emacsclient is not supported in bash yet.
+export EMACS_SERVER_FILE=$HOME/.emacs.d/server/server
+
+alias e="emacs -nw"
+export EDITOR="emacs -nw"
+export VISUAL="$EDITOR"
 
 [[ -s "~/.profile" ]] && source ~/.profile
 [[ -s "~/.env_settings" ]] && source ~/.env_settings
