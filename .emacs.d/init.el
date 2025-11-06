@@ -637,6 +637,7 @@
 (global-set-key (kbd "C-c f") 'helm-find)
 
 ;; git grep
+(require 'helm-git-grep)
 (global-unset-key (kbd "C-c g"))
 (global-set-key (kbd "C-c g") 'helm-git-grep)
 (define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
