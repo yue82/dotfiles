@@ -481,6 +481,8 @@
 ;; neotree
 (global-unset-key (kbd "C-M-t"))
 (global-set-key (kbd "C-M-t") 'neotree-toggle)
+(global-unset-key (kbd "M-t"))          ;
+(global-set-key (kbd "M-t") 'neotree-toggle)
 (setq neo-show-hidden-files t)
 (setq neo-create-file-auto-open t)
 (setq neo-persist-show t)
