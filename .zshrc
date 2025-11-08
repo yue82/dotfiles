@@ -282,6 +282,14 @@ my-wsl-open() {
   fi
 }
 
+# pnpm
+export PNPM_HOME="/home/yue/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
 export EMACS_SERVER_FILE="$HOME/.emacs.d/server/"
 
 show-emacs-server() {
