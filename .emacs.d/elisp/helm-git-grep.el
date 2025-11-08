@@ -44,7 +44,7 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'cl))
+(eval-when-compile (require 'cl-lib))
 (require 'helm)
 (require 'helm-files)
 
@@ -85,7 +85,7 @@ Set it to nil if you don't want this limit."
   :type  'boolean)
 
 (defcustom helm-git-grep-ignore-case t
-  "Ignore case when matching."
+  "Ignore cl-case when matching."
   :group 'helm-git-grep
   :type  'boolean)
 
@@ -323,7 +323,7 @@ newline return an empty string."
         new-buf)
     (when (get-buffer buf)
       (setq new-buf (read-string prompt buf))
-      (loop for b in (helm-buffer-list)
+      (cl-loop for b in (helm-buffer-list)
             when (and (string= new-buf b)
                       (not (y-or-n-p
                             (format "Buffer `%s' already exists overwrite? "
@@ -358,7 +358,7 @@ if MARK is t, Set mark."
          (fname (or (with-current-buffer helm-buffer
                       (get-text-property (point-at-bol) 'help-echo))
                     (nth 2 candidate))))
-    (case where
+    (cl-case where
           (other-window (find-file-other-window fname))
           (other-frame  (find-file-other-frame fname))
           (grep         (helm-git-grep-save-results-1))
@@ -533,7 +533,7 @@ With a prefix arg record CANDIDATE in `mark-ring'."
 (put 'helm-git-grep-run-save-buffer 'helm-only t)
 
 (defun helm-git-grep-toggle-ignore-case ()
-  "Toggle ignore case option for git grep command from `helm-git-grep'."
+  "Toggle ignore cl-case option for git grep command from `helm-git-grep'."
   (interactive)
   (setq helm-git-grep-ignore-case (not helm-git-grep-ignore-case))
   (helm-git-grep-rerun-with-input))
@@ -598,7 +598,7 @@ which is defined by `helm-git-grep-pathspecs'."
   "== Helm Git Grep Map ==\
 \nHelm Git Grep tips:
 
-You can toggle ignore case option of git grep.
+You can toggle ignore cl-case option of git grep.
 You can save your results in a helm-git-grep-mode buffer, see below.
 
 \nSpecific commands for Helm Grep:
@@ -610,7 +610,7 @@ You can save your results in a helm-git-grep-mode buffer, see below.
  to check files limited by pathspec.
 \\[helm-git-grep-pathspec-toggle-availability]\t\t->Toggle pathspec availability.
 \\[helm-git-grep-toggle-base-directory]\t\t->Toggle base directory for search.
-\\[helm-git-grep-toggle-ignore-case]\t\t->Toggle ignore case option.
+\\[helm-git-grep-toggle-ignore-case]\t\t->Toggle ignore cl-case option.
 \\[helm-git-grep-toggle-wordgrep]\t\t->Toggle wordgrep option.
 \\[helm-git-grep-run-other-window-action]\t\t->Jump other window.
 \\[helm-git-grep-run-other-frame-action]\t\t->Jump other frame.

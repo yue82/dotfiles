@@ -290,7 +290,7 @@ esac
 # pnpm end
 
 
-alias emacs='emacs -t'
+alias emacs='emacs -nw'
 export EMACS_SERVER_DIR="$HOME/.emacs.d/server/"
 mkdir -p "$EMACS_SERVER_DIR"
 

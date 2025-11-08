@@ -56,9 +56,12 @@
 
 (define-minor-mode scratch-ext-minor-mode
   "*scratch*バッファ専用のマイナーモード"
-  nil ""
-  '(("\C-c\C-c" . scratch-pop-kill-ring-save-exit)
-    ("\C-c\C-e" . erase-buffer)))
+  :init-value nil
+  :lighter ""
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "C-c C-c") #'scratch-pop-kill-ring-save-exit)
+            (define-key map (kbd "C-c C-e") #'erase-buffer)
+            map))
 
 (with-current-buffer (get-buffer-create "*scratch*")
   (erase-buffer)
@@ -222,7 +225,8 @@
 
 ;;行ハイライト
 (require 'hl-line)
-(set-face-attribute 'hl-line nil :inherit nil)
+(set-face-attribute 'hl-line nil
+                    :inherit nil)
 (set-face-background 'hl-line "black")
 (defvar global-hl-line-timer-exclude-modes '(todotxt-mode))
 (defun global-hl-line-timer-function ()
@@ -569,7 +573,7 @@
       "\\<\\([htp]\\{3,5\\}s?\\|ftp\\|file\\)://\\([-!@#$%^&*()_+|=:~/?a-zA-Z0-9.,;]*[-!@#$%^&*()_+|=:~/?a-zA-Z0-9]+\\)\\>")
 (setq action-lock-browse-regexp-pos 0)
 
-(require 'howm-mode)
+(require 'howm)
 (setq howm-keyword-file "~/.howm-keys")
 (setq howm-history-file "~/.howm-history")
 (setq howm-search-path '("~/memos"))
@@ -588,7 +592,7 @@
 (require 'yasnippet)
 (setq yas-snippet-dirs
       '("~/.emacs.d/snippets" ;; 作成するスニペットはここに入る
-        yas-installed-snippets-dir
+        ;; yas-installed-snippets-dir
         yasnippet-snippets-dir
         ))
 (yas-global-mode 1)
