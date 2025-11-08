@@ -660,6 +660,19 @@
 (global-unset-key (kbd "C-c C-g"))
 (global-set-key (kbd "C-c C-g") 'find-grep)
 
+;; helm swoop
+(require 'helm-swoop)
+(setq helm-swoop-speed-or-color nil)
+(define-key isearch-mode-map (kbd "C-l") 'helm-swoop-from-isearch)
+(defun my-helm-swoop-in-normal-window ()
+  "Avoid neotree window when showing helm-swoop."
+  (interactive)
+  (let ((helm-display-function
+         (lambda (buf)
+           (display-buffer
+            buf '(display-buffer-below-selected)))))
+    (call-interactively 'helm-swoop)))
+(global-set-key (kbd "M-i") 'my-helm-swoop-in-normal-window)
 
 ;; evernote
 (require 'geeknote)
