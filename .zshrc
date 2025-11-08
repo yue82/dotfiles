@@ -245,7 +245,6 @@ function my_enter {
 zle -N my_enter
 bindkey '^m' my_enter
 
-export EDITOR='emacsclient -t -a emacs'
 export SHELL='zsh'
 
 [[ -e "$HOME/.tmuxinator/tmuxinator.zsh" ]] && source "$HOME/.tmuxinator/tmuxinator.zsh"
@@ -354,9 +353,9 @@ ekill() {
     fi
 }
 
-alias e='window-emacs-client'
-export EDITOR="zsh -i -c 'window-emacs-client'"
+alias emacs='TERM=xterm-256color emacs -t'
+alias e='TERM=xterm-256color window-emacs-client'
+export EDITOR="TERM=xterm-256color zsh -i -c 'window-emacs-client'"
 export VISUAL="$EDITOR"
 
-[[ -s ~/.profile ]] && source ~/.profile
 [[ -s ~/.env_settings ]] && source ~/.env_settings

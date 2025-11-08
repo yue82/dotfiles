@@ -32,6 +32,11 @@ root: ~/
 
 
 windows:
+  # - dotfiles:
+  #     panes:
+  #       - dotfiles:
+  #           - cd ~/dotfiles
+  #           - e
   - memo:
       panes:
         - memo:
