@@ -1,6 +1,6 @@
-# ~/.tmuxinator/d.yml
+# ~/.tmuxinator/b.yml
 
-name: dw
+name: base
 root: ~/
 
 # Optional tmux socket
@@ -35,9 +35,12 @@ windows:
   - memo:
       panes:
         - memo:
-            - cd ~/memos/dw_memos
-            - git pull origin master
             - cd ~/memos/my_memos
             - git pull origin master
-            - cd ~/memos
-            - emacs
+            - e
+  - trunk:
+      panes:
+        - code:
+            - cd ~/trunk
+        - shell:
+            - cd ~/trunk

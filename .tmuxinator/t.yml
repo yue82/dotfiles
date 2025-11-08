@@ -1,6 +1,6 @@
-# ~/.tmuxinator/home.yml
+# ~/.tmuxinator/tai.yml
 
-name: home
+name: tai
 root: ~/
 
 # Optional tmux socket
@@ -35,14 +35,15 @@ windows:
   - memo:
       panes:
         - memo:
+            - cd ~/memos/my_memos
+            - git pull origin master
             - cd ~/memos/tai_memos
             - git pull origin main
             - ./daily.sh
-            - cd ~/memos/my_memos
-            - git pull origin master
-            - cd ~/memos
             - e
   - trunk:
       panes:
-        - trunk:
+        - code:
+            - cd ~/trunk
+        - shell:
             - cd ~/trunk
