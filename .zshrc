@@ -225,7 +225,7 @@ PROMPT="[%* %n%(?.%{${fg[green]}%}.%{${fg[red]}%})@%{${reset_color}%}%m]%(?.. <%
 setopt extended_history
 
 # 空Enterでpwdとls
-function my_enter {
+function my-enter {
     if [[ -n "$BUFFER" ]]; then
         builtin zle .accept-line
         return 0
@@ -242,8 +242,8 @@ function my_enter {
     esac
     zle reset-prompt
 }
-zle -N my_enter
-bindkey '^m' my_enter
+zle -N my-enter
+bindkey '^m' my-enter
 
 export SHELL='zsh'
 
@@ -289,11 +289,20 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-export EMACS_SERVER_FILE="$HOME/.emacs.d/server/"
 
-show-emacs-server() {
-    EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
-    if emacsclient -s "${EMACS_SERVER_NAME}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
+alias emacs='emacs -t'
+export EMACS_SERVER_DIR="$HOME/.emacs.d/server/"
+mkdir -p "$EMACS_SERVER_DIR"
+
+if [ -z "$TMUX" ]; then
+    export EMACS_SERVER_NAME="server"
+else
+    export EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
+fi
+export EMACS_SERVER_SOCKET="${EMACS_SERVER_DIR}${EMACS_SERVER_NAME}"
+
+emacs-server-show() {
+    if emacsclient -s "${EMACS_SERVER_SOCKET}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
         echo "server: ${EMACS_SERVER_NAME}"
         return 0
     else
@@ -302,19 +311,15 @@ show-emacs-server() {
     fi
 }
 
-ensure-window-emacs-server() {
-    if [ -z "$TMUX" ]; then
-        return 0
-    fi
-    EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
-    if emacsclient -s "${EMACS_SERVER_NAME}" -e "(message \"\n\")" > /dev/null 2>&1; then
+emacs-server-with-tmux() {
+    if emacsclient -s "${EMACS_SERVER_SOCKET}" -e "(message \"\n\")" > /dev/null 2>&1; then
         return 0
     else
-        emacs --daemon="${EMACS_SERVER_NAME}" > /dev/null 2>&1 &
+        command emacs --daemon="$EMACS_SERVER_NAME" > /dev/null 2>&1 &
         local i=0
         local MAX_TRIES=10
         while [ $i -lt $MAX_TRIES ]; do
-            if emacsclient -s "${EMACS_SERVER_NAME}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
+            if emacsclient -s "${EMACS_SERVER_SOCKET}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
                 return 0
             fi
             sleep 1
@@ -324,38 +329,39 @@ ensure-window-emacs-server() {
     fi
 }
 
-window-emacs-client() {
+emacs-client-with-tmux() {
     if [ -z "$TMUX" ]; then
         emacsclient -t -a emacs "$@"
         return $?
     fi
     EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
-    ensure-window-emacs-server
-    emacsclient -s "${EMACS_SERVER_NAME}" -t -a emacs "$@"
+    emacs-server-with-tmux
+    emacsclient -s "${EMACS_SERVER_SOCKET}" -t -a emacs "$@"
 }
 
 ekill() {
     if [ -z "$TMUX" ]; then
-        return 1
+        EMACS_SERVER_NAME="server"
+    else
+        EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
     fi
-    local EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
-    if emacsclient -s "${EMACS_SERVER_NAME}" -n -e '(kill-emacs)' > /dev/null 2>&1; then
+    if emacsclient -s "${EMACS_SERVER_SOCKET}" -n -e '(kill-emacs)' > /dev/null 2>&1; then
         sleep 0.2
-        if emacsclient -s "${EMACS_SERVER_NAME}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
+        if emacsclient -s "${EMACS_SERVER_SOCKET}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
             return 1
         else
-            rm -f "${EMACS_SERVER_FILE}${EMACS_SERVER_NAME}"*
+            rm -f "${EMACS_SERVER_DIR}${EMACS_SERVER_NAME}"*
             return 0
         fi
     else
-        rm -f "${EMACS_SERVER_FILE}${EMACS_SERVER_NAME}"*
+        rm -f "${EMACS_SERVER_DIR}${EMACS_SERVER_NAME}"*
         return 0
     fi
 }
 
-alias emacs='TERM=xterm-256color emacs -t'
-alias e='TERM=xterm-256color window-emacs-client'
-export EDITOR="TERM=xterm-256color zsh -i -c 'window-emacs-client'"
+alias e='emacs-client-with-tmux'
+export EDITOR="zsh -i -c 'emacs-client-with-tmux'"
 export VISUAL="$EDITOR"
+export TERM=xterm-256color
 
 [[ -s ~/.env_settings ]] && source ~/.env_settings
