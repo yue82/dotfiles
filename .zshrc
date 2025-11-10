@@ -294,14 +294,17 @@ alias emacs='emacs -nw'
 export EMACS_SERVER_DIR="$HOME/.emacs.d/server/"
 mkdir -p "$EMACS_SERVER_DIR"
 
-if [ -z "$TMUX" ]; then
-    export EMACS_SERVER_NAME="server"
-else
-    export EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
-fi
-export EMACS_SERVER_SOCKET="${EMACS_SERVER_DIR}${EMACS_SERVER_NAME}"
+get-emacs-server() {
+    if [ -z "$TMUX" ]; then
+        EMACS_SERVER_NAME="server"
+    else
+        EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
+    fi
+    EMACS_SERVER_SOCKET="${EMACS_SERVER_DIR}${EMACS_SERVER_NAME}"
+}
 
 emacs-server-show() {
+    get-emacs-server
     if emacsclient -s "${EMACS_SERVER_SOCKET}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
         echo "server: ${EMACS_SERVER_NAME}"
         return 0
@@ -312,6 +315,7 @@ emacs-server-show() {
 }
 
 emacs-server-with-tmux() {
+    get-emacs-server
     if emacsclient -s "${EMACS_SERVER_SOCKET}" -e "(message \"\n\")" > /dev/null 2>&1; then
         return 0
     else
@@ -334,8 +338,9 @@ emacs-client-with-tmux() {
         emacsclient -t -a emacs "$@"
         return $?
     fi
-    EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
+    get-emacs-server
     emacs-server-with-tmux
+    echo "open" $EMACS_SERVER_NAME
     emacsclient -s "${EMACS_SERVER_SOCKET}" -t -a emacs "$@"
 }
 

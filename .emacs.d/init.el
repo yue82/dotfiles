@@ -68,7 +68,6 @@
   (ignore-errors
     (insert-file-contents auto-save-buffers-enhanced-file-related-with-scratch-buffer))
   (markdown-mode)
-  (setq header-line-format "scratch!!")
   (scratch-ext-minor-mode 1))
 
 (defun scratch-pop-kill-ring-save-exit ()
@@ -663,7 +662,7 @@
 ;; helm swoop
 (require 'helm-swoop)
 (setq helm-swoop-speed-or-color nil)
-(define-key isearch-mode-map (kbd "C-l") 'helm-swoop-from-isearch)
+(define-key isearch-mode-map (kbd "C-j") 'helm-swoop-from-isearch)
 (defun my-helm-swoop-in-normal-window ()
   "Avoid neotree window when showing helm-swoop."
   (interactive)
