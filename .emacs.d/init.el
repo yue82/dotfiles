@@ -454,8 +454,9 @@
 (set-face-foreground 'anzu-mode-line nil)
 (global-set-key (kbd "C-c r") 'anzu-query-replace)
 
-;; path-headerline-mode
-(require 'path-headerline-mode)
+;; my-path-headerline-mode
+(require 'my-path-headerline-mode)
+(my-path-headerline-mode 1)
 
 ;;;;; ----------
 ;;;;; Key bind

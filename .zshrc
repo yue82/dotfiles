@@ -303,7 +303,7 @@ get-emacs-server() {
     EMACS_SERVER_SOCKET="${EMACS_SERVER_DIR}${EMACS_SERVER_NAME}"
 }
 
-emacs-server-show() {
+show-emacs-server() {
     get-emacs-server
     if emacsclient -s "${EMACS_SERVER_SOCKET}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
         echo "server: ${EMACS_SERVER_NAME}"
