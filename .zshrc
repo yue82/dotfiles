@@ -172,6 +172,7 @@ case ${OSTYPE} in
         if uname -r | grep -i 'microsoft' > /dev/null ; then # WSL
             alias xdg-open=wsl-open
             alias open=my-wsl-open
+            export XDG_SESSION_TYPE=x11
         else
             alias open=xdg-open
         fi
