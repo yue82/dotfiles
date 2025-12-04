@@ -366,8 +366,55 @@ ekill() {
 }
 
 alias e='emacs-client-with-tmux'
+alias erestart='ekill; sleep 1; emacs-client-with-tmux'
 export EDITOR="zsh -i -c 'emacs-client-with-tmux'"
 export VISUAL="$EDITOR"
 export TERM=xterm-256color
+
+
+# notify
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+    eval $(dbus-launch --sh-syntax)
+fi
+NOTIFYD_PATH="/usr/lib/x86_64-linux-gnu/xfce4/notifyd/xfce4-notifyd"
+if [ -f "$NOTIFYD_PATH" ] && ! pgrep -x "xfce4-notifyd" > /dev/null; then
+    "$NOTIFYD_PATH" &
+fi
+notify_run() {
+    local command_str="$*"
+    "$@"                        # exec
+    local exit_code=$?
+    local host=$(hostname)
+
+    if [ $exit_code -eq 0 ]; then
+        local title="FINISH SUCCESS($exit_code) @${host}"
+        local icon_name='weather-clear'
+    else
+        local title="FINISH ERROR($exit_code) @${host}"
+        local icon_name='weather-showers'
+    fi
+    local message="\n\nCommand: ${command_str}"
+    notify-send "$title" "$message" -i "$icon_name"
+    return $exit_code
+}
+notify_proc() {
+    if [ -z "$1" ]; then
+        echo "no PID"
+        return 1
+    fi
+    local pid_to_monitor="$1"
+    local command_str=$(ps -p "$pid_to_monitor" -o args= 2>/dev/null)
+
+    echo "Start monitor $pid_to_monitor: $command_str"
+    while kill -0 "$pid_to_monitor" 2>/dev/null; do
+        sleep 10
+    done
+
+    local host=$(hostname)
+    local title="FINISH PID:${pid_to_monitor} @${host}"
+    local icon_name='weather-clear-night'
+    local message="\n\nCommand: ${command_str}"
+    notify-send "$title" "$message" -i "$icon_name"
+}
 
 [[ -s ~/.env_settings ]] && source ~/.env_settings
