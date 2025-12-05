@@ -373,12 +373,15 @@ export TERM=xterm-256color
 
 
 # notify
+# sudo apt install libnotify-bin xfce4-notifyd
 if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
     eval $(dbus-launch --sh-syntax)
 fi
 NOTIFYD_PATH="/usr/lib/x86_64-linux-gnu/xfce4/notifyd/xfce4-notifyd"
 if [ -f "$NOTIFYD_PATH" ] && ! pgrep -x "xfce4-notifyd" > /dev/null; then
-    "$NOTIFYD_PATH" &
+    sleep 2
+    "$NOTIFYD_PATH" > /dev/null 2>&1 &
+
 fi
 notify_run() {
     local command_str="$*"

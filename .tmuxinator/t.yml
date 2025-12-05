@@ -40,6 +40,7 @@ windows:
             - cd ~/memos/tai_memos
             - git pull origin main
             - ./daily.sh
+            - notify_run echo "HelloWorld" &
             - e
   - trunk:
       panes:
