@@ -17,3 +17,5 @@
 !/.emacs.d/package.el
 !/.emacs.d/kkctc
 !/.emacs.d/.platex2pdf
+!/.emacs.d/server/
+/.emacs.d/server/*
