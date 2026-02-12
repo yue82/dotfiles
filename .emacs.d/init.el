@@ -177,14 +177,16 @@
       ))
 
 ;; 行&文字数カウント
-(defun count-lines-and-chars ()
-  (if mark-active
-      (format "%d lines,%d chars "
-              (count-lines (region-beginning) (region-end))
-              (- (region-end) (region-beginning)))
-    ""))
-(add-to-list 'mode-line-format
-             '(:eval (count-lines-and-chars)))
+(defun my-mode-line-region-info ()
+  (when (use-region-p)
+    (format "[%d,%d] "
+            (count-lines (region-beginning) (region-end))
+            (- (region-end) (region-beginning)))))
+
+(setq-default mode-line-format
+              (cons '(:eval (my-mode-line-region-info))
+                    mode-line-format))
+(force-mode-line-update t)
 
 ;; 括弧ハイライト
 (show-paren-mode t)
