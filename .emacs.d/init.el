@@ -470,6 +470,9 @@
 ;; バッファ同期スクロール
 (global-set-key (kbd "C-c s") 'scroll-all-mode)
 
+;; goal-column 誤発動防止
+(global-unset-key (kbd "C-x C-n"))
+
 
 ;;;;; ----------
 ;;;;; Tool
