@@ -486,6 +486,12 @@
 
 ;; undohist
 (require 'undohist)
+(setq undohist-ignored-files
+      (append undohist-ignored-files
+              '("COMMIT_EDITMSG" "MERGE_MSG" "TAG_EDITMSG"
+                "NOTES_EDITMSG" "PULLREQ_EDITMSG" "MERGEREQ_EDITMSG"
+                "EDIT_DESCRIPTION" "BRANCH_DESCRIPTION"
+                "git-rebase-todo")))
 (undohist-initialize)
 
 ;; tramp
