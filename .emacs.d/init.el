@@ -6,7 +6,6 @@
 ;; (package-initialize)
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/el"))
 
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
@@ -35,8 +34,6 @@
 (setq make-backup-files nil)
 
 ;; ファイル履歴を自動保存
-(require 'recentf)
-(recentf-mode 1)
 (when (require 'recentf nil t)
   (setq recentf-save-file "~/.emacs.d/.recentf")
   (setq recentf-max-saved-items 2000)
@@ -814,7 +811,7 @@
 (defun coffee-custom ()
   "coffee-mode-hook"
   (and (set (make-local-variable 'tab-width) 2)
-       (set (make-locl-variable 'coffee-tab-width) 2))
+       (set (make-local-variable 'coffee-tab-width) 2))
   )
 (add-hook 'coffee-mode-hook
           '(lambda() (coffee-custom)))
@@ -822,7 +819,7 @@
 ;; ruby mode
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
-(add-to-list 'auto-mode-alist '("\\.rb$latex " . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rb\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 
@@ -853,14 +850,14 @@
 
 ;; web-mode
 (require 'web-mode)
-(defun web-mode-hook ()
+(defun my-web-mode-setup ()
   "Hooks for Web mode."
   ;; web-modeの設定
-  (setq web-mode-markup-indent-offset 2) ;; html indent
-  (setq web-mode-css-indent-offset 2)    ;; css indent
-  (setq web-mode-code-indent-offset 2)   ;; script indent(js,php,etc..)
-  (setq web-mode-comment-style 2)
-  )
+  (setq-local web-mode-markup-indent-offset 2) ;; html indent
+  (setq-local web-mode-css-indent-offset 2)    ;; css indent
+  (setq-local web-mode-code-indent-offset 2)   ;; script indent(js,php,etc..)
+  (setq-local web-mode-comment-style 2))
+(add-hook 'web-mode-hook #'my-web-mode-setup)
 ;; 適用する拡張子
 (add-to-list 'auto-mode-alist '("\\.phtml$"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
