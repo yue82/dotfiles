@@ -9,11 +9,6 @@
 
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
-;; server
-(let ((sockdir (getenv "EMACS_SERVER_DIR")))
-  (when sockdir
-    (setq server-socket-dir sockdir)))
-
 ;; menu-bar off on terminal
 (if window-system (menu-bar-mode 1) (menu-bar-mode -1))
 

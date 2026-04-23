@@ -115,9 +115,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# my custom emacsclient is not supported in bash yet.
-export EMACS_SERVER_FILE=$HOME/.emacs.d/server/server
-
 alias emacs='TERM=xterm-256color emacs -t'
 alias e='TERM=xterm-256color emacsclient -t -a ""'
 export EDITOR="emacsclient -t -a """
