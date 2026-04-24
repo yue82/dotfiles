@@ -292,7 +292,7 @@ esac
 
 
 alias emacs='emacs -nw'
-export EMACS_SERVER_DIR="${TMPDIR:-/tmp}/emacs$(id -u)/"
+export EMACS_SERVER_DIR="/tmp/emacs$(id -u)/"
 mkdir -p "$EMACS_SERVER_DIR"
 
 get-emacs-server() {

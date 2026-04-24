@@ -9,6 +9,9 @@
 
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
+;; server socket dir: TMPDIR が /run/user/$UID になると permission で落ちるので /tmp に固定
+(setq server-socket-dir (format "/tmp/emacs%d" (user-uid)))
+
 ;; menu-bar off on terminal
 (if window-system (menu-bar-mode 1) (menu-bar-mode -1))
 
