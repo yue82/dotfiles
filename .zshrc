@@ -120,9 +120,6 @@ setopt share_history
 # 同じコマンドをヒストリに残さない
 setopt hist_ignore_all_dups
 
-# スペースから始まるコマンド行はヒストリに残さない
-setopt hist_ignore_space
-
 # ヒストリに保存するときに余分なスペースを削除する
 setopt hist_reduce_blanks
 

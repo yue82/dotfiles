@@ -31,6 +31,17 @@ do
 done
 
 
+# nested dot files (under subdirs like .claude/, where the dir itself contains
+# state we must NOT clobber with a directory-level symlink)
+DOT_FILES_NESTED=(.claude/settings.json .claude/notify-input.sh .claude/CLAUDE.md)
+for file in ${DOT_FILES_NESTED[@]}
+do
+    mkdir -p $HOME/$(dirname $file)
+    ln -s $HOME/dotfiles/$file $HOME/$file
+    echo 'ln '$HOME/$file
+done
+
+
 # aspell setting
 echo "lang en_US" > ~/.aspell.conf
 

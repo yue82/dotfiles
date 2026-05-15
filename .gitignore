@@ -19,3 +19,8 @@
 !/.emacs.d/.platex2pdf
 !/.emacs.d/server/
 /.emacs.d/server/*
+!/.claude/
+/.claude/*
+!/.claude/CLAUDE.md
+!/.claude/settings.json
+!/.claude/notify-input.sh
