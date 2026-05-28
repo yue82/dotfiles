@@ -19,7 +19,12 @@ else
 fi
 
 # Claude が動いている pane の所属 window の番号:名前 を取得
-window=$(tmux display-message -p '#I:#W' 2>/dev/null || echo "?")
+# TMUX_PANE は Claude プロセスが動いている pane の ID (フックに継承される)
+if [ -n "${TMUX_PANE:-}" ]; then
+  window=$(tmux display-message -p -t "$TMUX_PANE" '#I:#W' 2>/dev/null || echo "?")
+else
+  window=$(tmux display-message -p '#I:#W' 2>/dev/null || echo "?")
+fi
 
 # -d 0 で「次のキー押下まで」表示 (window 切替えキーでも消える)
 tmux display-message -d 0 "Claude [${window}]: ${body}" 2>/dev/null || true
