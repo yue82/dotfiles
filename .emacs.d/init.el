@@ -571,7 +571,7 @@
 ;; howm
 (setq howm-ref-header "-->")
 (setq howm-keyword-header "<--")
-(setq action-lock-switch-default '("[ ]" "[-]" "[*]" "[!]" "[w]" "[p]" "[x]" "[o]" "[?]"))
+(setq action-lock-switch-default '("[ ]" "[-]" "[*]" "[!]" "[t]" "[w]" "[p]" "[x]" "[o]" "[?]"))
 (setq action-lock-open-regexp
       "\\<-->\\(localhost\\)?\\([-!@#$%^&*()_+|=:~/?a-zA-Z0-9.,;]*[-!@#$%^&*()_+|=:~/?a-zA-Z0-9]+\\)\\>")
 (setq action-lock-open-regexp-pos 2)
