@@ -26,5 +26,15 @@ else
   window=$(tmux display-message -p '#I:#W' 2>/dev/null || echo "?")
 fi
 
+# Claude の window をユーザが今表示しているなら通知しない
+# (通知のステータス行表示が pane の再描画より先に来て確認事項を隠し、
+#  誤って Enter で許可してしまうのを防ぐ)
+if [ -n "${TMUX_PANE:-}" ]; then
+  active=$(tmux display-message -p -t "$TMUX_PANE" '#{window_active}' 2>/dev/null || echo "0")
+  if [ "$active" = "1" ]; then
+    exit 0
+  fi
+fi
+
 # -d 0 で「次のキー押下まで」表示 (window 切替えキーでも消える)
 tmux display-message -d 0 "Claude [${window}]: ${body}" 2>/dev/null || true
