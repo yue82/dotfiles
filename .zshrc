@@ -316,19 +316,21 @@ emacs-server-with-tmux() {
     get-emacs-server
     if emacsclient -s "${EMACS_SERVER_SOCKET}" -e "(message \"\n\")" > /dev/null 2>&1; then
         return 0
-    else
-        command emacs --daemon="$EMACS_SERVER_NAME" > /dev/null 2>&1 &
-        local i=0
-        local MAX_TRIES=10
-        while [ $i -lt $MAX_TRIES ]; do
-            if emacsclient -s "${EMACS_SERVER_SOCKET}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
-                return 0
-            fi
-            sleep 1
-            i=$((i + 1))
-        done
-        return 1
     fi
+    # socket に繋がらない: 生き残った同名 daemon と stale socket を掃除してから起動
+    pkill -f "emacs --daemon=${EMACS_SERVER_NAME}\$" 2>/dev/null
+    rm -f "${EMACS_SERVER_SOCKET}"*
+    command emacs --daemon="$EMACS_SERVER_NAME" > /dev/null 2>&1 &
+    local i=0
+    local MAX_TRIES=10
+    while [ $i -lt $MAX_TRIES ]; do
+        if emacsclient -s "${EMACS_SERVER_SOCKET}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
+            return 0
+        fi
+        sleep 1
+        i=$((i + 1))
+    done
+    return 1
 }
 
 emacs-client-with-tmux() {
@@ -343,23 +345,10 @@ emacs-client-with-tmux() {
 }
 
 ekill() {
-    if [ -z "$TMUX" ]; then
-        EMACS_SERVER_NAME="server"
-    else
-        EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
-    fi
-    if emacsclient -s "${EMACS_SERVER_SOCKET}" -n -e '(kill-emacs)' > /dev/null 2>&1; then
-        sleep 0.2
-        if emacsclient -s "${EMACS_SERVER_SOCKET}" -n -e "(message \"\n\")" > /dev/null 2>&1; then
-            return 1
-        else
-            rm -f "${EMACS_SERVER_DIR}${EMACS_SERVER_NAME}"*
-            return 0
-        fi
-    else
-        rm -f "${EMACS_SERVER_DIR}${EMACS_SERVER_NAME}"*
-        return 0
-    fi
+    get-emacs-server
+    emacsclient -s "${EMACS_SERVER_SOCKET}" -n -e '(kill-emacs)' > /dev/null 2>&1
+    pkill -f "emacs --daemon=${EMACS_SERVER_NAME}\$" 2>/dev/null
+    rm -f "${EMACS_SERVER_SOCKET}"*
 }
 
 alias e='emacs-client-with-tmux'
