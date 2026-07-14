@@ -516,6 +516,9 @@
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x d") 'helm-find-files) ; helm でディレクトリ/ファイルをたどる
+(global-set-key (kbd "C-x C-d")
+                (lambda () (interactive) (dired default-directory))) ; 今のディレクトリを普通の dired で開く
 (global-set-key (kbd "C-c h o") 'helm-occur)
 (setq helm-M-x-fuzzy-match t)
 (setq helm-buffers-fuzzy-matching t

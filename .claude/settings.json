@@ -22,5 +22,19 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {
+    "crit@crit": true
+  },
+  "extraKnownMarketplaces": {
+    "crit": {
+      "source": {
+        "source": "github",
+        "repo": "tomasz-tomczyk/crit"
+      }
+    }
+  },
+  "tui": "default",
+  "fileCheckpointingEnabled": false,
+  "awaySummaryEnabled": false
 }

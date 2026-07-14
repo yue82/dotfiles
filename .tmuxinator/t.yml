@@ -46,7 +46,7 @@ windows:
       panes:
         - code:
             - cd ~/trunk
-  - data:
+  - ezsign:
       panes:
-        - data:
-            - cd ~/data
+        - ezsign:
+            - ~/trunk/ez_sign_calendar/epaper-calendar/contrib/ezsign-setup.sh
