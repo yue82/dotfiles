@@ -296,7 +296,10 @@ get-emacs-server() {
     if [ -z "$TMUX" ]; then
         EMACS_SERVER_NAME="server"
     else
-        EMACS_SERVER_NAME="window-$(tmux display-message -p '#{window_index}')"
+        # display-message は -t を省くとクライアントのアクティブ window を基準にするため、
+        # mux 起動時のように別 window がアクティブだと誤った index を返す。
+        # $TMUX_PANE で実行中の pane に固定し、その window index を取る。
+        EMACS_SERVER_NAME="window-$(tmux display-message -p -t "$TMUX_PANE" '#{window_index}')"
     fi
     EMACS_SERVER_SOCKET="${EMACS_SERVER_DIR}${EMACS_SERVER_NAME}"
 }
