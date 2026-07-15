@@ -502,7 +502,8 @@
 (setq neo-create-file-auto-open t)
 (setq neo-persist-show t)
 (setq neo-keymap-style 'concise)
-(setq neo-smart-open t)
+;; neo-smart-open を t にすると開くたびに現在ファイルの場所へルートが移るので nil にする。
+(setq neo-smart-open nil)
 (add-hook 'neo-after-create-hook
           (lambda (&rest _) (display-line-numbers-mode -1)))
 
